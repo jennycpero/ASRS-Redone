@@ -10,3 +10,4 @@ plotly
 transformers
 evaluate
 vaderSentiment
+gunicorn
