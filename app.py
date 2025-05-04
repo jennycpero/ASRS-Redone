@@ -10,13 +10,17 @@ from transformers import T5ForConditionalGeneration, T5Tokenizer
 import evaluate
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-# Grab data - start August 2001 and end at November 2024
 client = MongoClient('mongodb+srv://jennycpero:UQHG2Sfufk73KHGX@cluster0.rudlgwh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 db = client['ASRSDB']
 collection = db.asrsColl
 
-cursor = collection.find({})
-df = pd.json_normalize(list(cursor))
+projection = {
+    "Assessments.Primary Problem": 1,  
+    "Place.State Reference": 1,
+    "Time / Day.Date": 1  
+}
+
+df = pd.json_normalize(collection.find({}, projection))
 
 # Create app
 app = Dash(__name__, suppress_callback_exceptions=True,  external_stylesheets=[dbc.themes.BOOTSTRAP], assets_folder='assets', assets_url_path='/assets/')
@@ -92,7 +96,7 @@ def update_page(pathname):
         return html.H2("Abbreviations and Acronyms")
     else:
         return html.Div(
-            style={'background-image': 'url(https://github.com/jennycpero/ASRS-Redone/blob/master/assets/background.jpg)'},
+            style={'background-image': 'url(https://github.com/jennycpero/ASRS-Redone/blob/master/assets/background.jpg)', 'position':'absolute','width':'100%', 'height':'100%', 'zIndex':'-1'},
             children=[
             html.H2("Unlock valuable insights with the Aviation Safety Reporting System (ASRS)"),
             html.H4("Use the search engine or browse basic statistics and analytics on over 60,000 aviation incident reports.")]
