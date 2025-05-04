@@ -99,7 +99,7 @@ def update_page(pathname):
             style={'background-image': 'url(https://github.com/jennycpero/ASRS-Redone/blob/master/assets/background.jpg)', 'position':'absolute','width':'100%', 'height':'100%', 'zIndex':'-1'},
             children=[
             html.H2("Unlock valuable insights with the Aviation Safety Reporting System (ASRS)"),
-            html.H4("Use the search engine or browse basic statistics and analytics on over 60,000 aviation incident reports.")]
+            html.H4("Use the search engine or browse basic statistics and analytics on almost 30,000 aviation incident reports.")]
         )
 
 if __name__ == '__main__':
