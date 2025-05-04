@@ -11,3 +11,4 @@ transformers
 evaluate
 vaderSentiment
 gunicorn
+dash_bootstrap_components
