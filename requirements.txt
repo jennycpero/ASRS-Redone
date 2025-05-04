@@ -1,0 +1,12 @@
+dash
+numpy
+pandas
+scikit_learn
+plotly
+pymongo
+torch
+requests
+plotly
+transformers
+evaluate
+vaderSentiment
