@@ -10,32 +10,12 @@ from transformers import T5ForConditionalGeneration, T5Tokenizer
 import evaluate
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-# Only grab reports with valid states
-valid_states = [
-    'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
-    'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
-    'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
-    'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
-    'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
-]
-
 # Grab data - start August 2001 and end at November 2024
-client = MongoClient('localhost', 27017)
+client = MongoClient('mongodb+srv://jennycpero:UQHG2Sfufk73KHGX@cluster0.rudlgwh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 db = client['ASRSDB']
-collection = db.asrs
-start_date = pd.to_datetime("2001-08-01")
-end_date = pd.to_datetime("2024-11-01")
-query = {
-    "Time / Day.Date": {
-        "$gte": start_date,
-        "$lte": end_date
-    },
-    "Place.State Reference": {
-        "$in": list(valid_states)  # Convert set to list for MongoDB
-    }
-}
+collection = db.asrsColl
 
-cursor = collection.find(query)
+cursor = collection.find({})
 df = pd.json_normalize(list(cursor))
 
 # Create app
