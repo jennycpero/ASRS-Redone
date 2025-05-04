@@ -19,7 +19,7 @@ cursor = collection.find({})
 df = pd.json_normalize(list(cursor))
 
 # Create app
-app = Dash(__name__, suppress_callback_exceptions=True,  external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, suppress_callback_exceptions=True,  external_stylesheets=[dbc.themes.BOOTSTRAP], assets_folder='assets', assets_url_path='/assets/')
 server = app.server
 
 # Navbar
@@ -90,7 +90,13 @@ def update_page(pathname):
         ])
     elif pathname == "/analysis":
         return html.H2("Abbreviations and Acronyms")
-    return html.H2("Welcome to the App!")
+    else:
+        return html.Div(
+            style={'background-image': 'url(https://github.com/jennycpero/ASRS-Redone/blob/master/assets/background.jpg)'},
+            children=[
+            html.H2("Unlock valuable insights with the Aviation Safety Reporting System (ASRS)"),
+            html.H4("Use the search engine or browse basic statistics and analytics on over 60,000 aviation incident reports.")]
+        )
 
 if __name__ == '__main__':
     app.run(debug=True)
